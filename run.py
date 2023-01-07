@@ -14,6 +14,19 @@ SHEET = GSPREAD_CLIENT.open("film_picker")
 
 films = SHEET.worksheet("films")
 
+def set_up():
+    """
+    Sets introduction up snd gives you the option to see a list of the films, 
+    choose a random film based on a category or add a film to the list.
+    """
+    print("Welcome to Film Picker!")
+    print("Please choose an action:\n")
+    print("1: See all available films")
+    print("2: Get a random film suggestion based on a category")
+    print("3: Add a new film to the system")
+    pick_option()
+
+
 def show_films():
     """
     Show a list of the films with their respectives categories, genre, synopsis and rating
@@ -29,4 +42,7 @@ def show_films():
         film_num = film_num + 1    
         print(f"{film_num}: {title}. Genre: {genre}. Synopsis: {descr} Rating: {rating}\n")   
 
-show_films()
+def main():
+    set_up()
+
+main()
