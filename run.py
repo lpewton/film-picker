@@ -70,7 +70,7 @@ def pick_random_category():
     """
     Allows user to pick a category for film to watch
     """
-    print("Pick a Category:")
+    print(f"\nPick a Category:")
     print("1: Comedy")
     print("2: Drama")
     print("3: Horror")
@@ -111,6 +111,7 @@ def pick_random_film(category):
     for ind in range(len(all_films)):
         if category in all_films[ind]:
             category_list.append(all_films[ind])
+    print(f"\nYou chose {category}. This is a recommended {category} film:")
     random_num = random.randint(0, len(category_list))
     film = category_list[random_num]
     title = film[0]
