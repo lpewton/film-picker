@@ -39,7 +39,7 @@ def pick_option():
         elif int(options) == 2:
             pick_random_category()
         elif int(options) == 3:
-            print("3")
+            update_worksheet()
         else:
             print("Please introduce one of the options")
             pick_option()
@@ -122,6 +122,31 @@ def pick_random_film(category):
     print(f"Genre: {genre}")
     print(f"Synopsis: {descr}")
     print(f"Rating: {rating}\n")
+
+def add_movie():
+    """
+    Adds film caracteristics to a list
+    """
+    new_movie = []
+    movie_title = input(f"\nMovie title: ")
+    movie_genre = input("Movie genre: ")
+    movie_descr = input("Movie synopsis: ")
+    movie_rating = input("IMDb Rating:")
+    new_movie.append(movie_title)
+    new_movie.append(movie_genre)
+    new_movie.append(movie_descr)
+    new_movie.append(movie_rating)
+
+    print(f"\nMovie added successfully\n")
+
+    return new_movie
+
+def update_worksheet():
+    """
+    Adds new film list to worksheet
+    """
+    movie = add_movie()
+    films.append_row(movie)
 
 def main():
     set_up()
