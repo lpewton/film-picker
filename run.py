@@ -131,15 +131,31 @@ def add_movie():
     movie_title = input(f"\nMovie title: ")
     movie_genre = input("Movie genre: ")
     movie_descr = input("Movie synopsis: ")
-    movie_rating = input("IMDb Rating:")
     new_movie.append(movie_title)
     new_movie.append(movie_genre)
     new_movie.append(movie_descr)
-    new_movie.append(movie_rating)
-
-    print(f"\nMovie added successfully\n")
+    new_movie.append(validate_rating())
 
     return new_movie
+
+def validate_rating():
+    """
+    Ensures that rating is a number from 1 to 10
+    """
+    try:
+        global rating
+        rating = float(input("IMDb Rating: "))
+        if rating > 10:
+            print("Rating must be between 0 and 10")
+            validate_rating()
+        elif rating < 0:
+            validate_rating()
+            print("Rating must be between 0 and 10")
+    except ValueError:
+        print("Please input a valid number")
+        validate_rating()
+    
+    return rating
 
 def update_worksheet():
     """
@@ -147,6 +163,7 @@ def update_worksheet():
     """
     movie = add_movie()
     films.append_row(movie)
+    print(f"\nMovie added successfully\n")
 
 def main():
     set_up()
