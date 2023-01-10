@@ -31,13 +31,13 @@ def pick_option():
     Give user options to see a list of the films, choose a random 
     film based on a category or add a film to the list.
     """
-
-    options = input("Introduce option: ")
     try:
+        options = input("Introduce option: ")
         if int(options) == 1:
             show_films()
         elif int(options) == 2:
-            pick_random_category()
+            pick_category()
+            pick_random_film(category)
         elif int(options) == 3:
             update_worksheet()
         else:
@@ -66,7 +66,7 @@ def show_films():
         print(f"Synopsis: {descr}")
         print(f"Rating: {rating}\n")
 
-def pick_random_category():
+def pick_category():
     """
     Allows user to pick a category for film to watch
     """
@@ -79,29 +79,38 @@ def pick_random_category():
     print("6: Crime")
     print("7: Romance")
     print("8: Fantasy")
-    print("9: Mystery\n")
-    categories = int(input("Introduce category: "))
-    if categories == 1:
-        category = "Comedy"
-    if categories == 2:
-        category = "Drama"
-    if categories == 3:
-        category = "Horror"
-    if categories == 4:
-        category = "History"
-    if categories == 5:
-        category = "Action"
-    if categories == 6:
-        category = "Crime"
-    if categories == 7:
-        category = "Romance"
-    if categories == 8:
-        category = "Fantasy"
-    if categories == 9:
-        category = "Mistery"
-
-    pick_random_film(category)
+    print(f"9: Mystery\n")
     
+    global category
+
+    try:
+        categories = int(input("Introduce category: "))
+        if categories == 1:
+            category = "Comedy"
+        if categories == 2:
+            category = "Drama"
+        if categories == 3:
+            category = "Horror"
+        if categories == 4:
+            category = "History"
+        if categories == 5:
+            category = "Action"
+        if categories == 6:
+            category = "Crime"
+        if categories == 7:
+            category = "Romance"
+        if categories == 8:
+            category = "Fantasy"
+        if categories == 9:
+            category = "Mistery"
+        if categories > 9:
+            print(f"\nPlease input a valid category")
+            pick_category()
+    except ValueError:
+        print(f"\nPlease input a valid category")
+        pick_category()
+    return category
+
 def pick_random_film(category):
     """
     Picks a random film from the category the user picked
@@ -129,10 +138,10 @@ def add_movie():
     """
     new_movie = []
     movie_title = input(f"\nMovie title: ")
-    movie_genre = input("Movie genre: ")
-    movie_descr = input("Movie synopsis: ")
     new_movie.append(movie_title)
-    new_movie.append(movie_genre)
+    new_movie.append(pick_category())
+    print(f"\nYou picked {category}\n")
+    movie_descr = input(f"Movie synopsis: ")
     new_movie.append(movie_descr)
     new_movie.append(validate_rating())
 
