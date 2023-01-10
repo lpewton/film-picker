@@ -36,6 +36,7 @@ def pick_option():
         if int(options) == 1:
             show_films()
         elif int(options) == 2:
+            print_categories()
             pick_category()
             pick_random_film(category)
         elif int(options) == 3:
@@ -66,7 +67,7 @@ def show_films():
         print(f"Synopsis: {descr}")
         print(f"Rating: {rating}\n")
 
-def pick_category():
+def print_categories():
     """
     Allows user to pick a category for film to watch
     """
@@ -81,6 +82,7 @@ def pick_category():
     print("8: Fantasy")
     print(f"9: Mystery\n")
     
+def pick_category():
     global category
 
     try:
@@ -104,10 +106,10 @@ def pick_category():
         if categories == 9:
             category = "Mistery"
         if categories > 9:
-            print(f"\nPlease input a valid category")
+            print(f"\nPlease input a valid category\n")
             pick_category()
     except ValueError:
-        print(f"\nPlease input a valid category")
+        print(f"\nPlease input a valid category\n")
         pick_category()
     return category
 
@@ -139,9 +141,10 @@ def add_movie():
     new_movie = []
     movie_title = input(f"\nMovie title: ")
     new_movie.append(movie_title)
+    print_categories()
     new_movie.append(pick_category())
     print(f"\nYou picked {category}\n")
-    movie_descr = input(f"Movie synopsis: ")
+    movie_descr = input("Movie synopsis: ")
     new_movie.append(movie_descr)
     new_movie.append(validate_rating())
 
@@ -153,7 +156,7 @@ def validate_rating():
     """
     try:
         global rating
-        rating = float(input("IMDb Rating: "))
+        rating = float(input(f"\nIMDb Rating: "))
         if rating > 10:
             print("Rating must be between 0 and 10")
             validate_rating()
