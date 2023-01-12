@@ -1,5 +1,6 @@
 import gspread
 import random
+import warnings
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -23,7 +24,8 @@ def set_up():
     print("Please choose an option:\n")
     print("1: See all available films")
     print("2: Get a random film suggestion based on a category")
-    print("3: Add a new film to the system\n")
+    print("3: Add a new film to the system")
+    print(f"4: Delete a film\n")
     pick_option()
 
 def pick_option():
@@ -41,6 +43,10 @@ def pick_option():
             pick_random_film(category)
         elif int(options) == 3:
             update_worksheet()
+        elif int(options) == 4:
+            print("Please choose a film to delete:")
+            show_films()
+            delete_film()
         else:
             print("Please introduce one of the options")
             pick_option()
@@ -69,7 +75,7 @@ def show_films():
 
 def print_categories():
     """
-    Allows user to pick a category for film to watch
+    Prints all categories so user can pick one
     """
     print(f"\nPick a Category:")
     print("1: Comedy")
@@ -83,6 +89,9 @@ def print_categories():
     print(f"9: Mystery\n")
     
 def pick_category():
+    """
+    Allows user to pick a category for film to watch
+    """
     global category
 
     try:
@@ -176,6 +185,20 @@ def update_worksheet():
     movie = add_movie()
     films.append_row(movie)
     print(f"\nMovie added successfully\n")
+
+def delete_film():
+    """
+    Deletes a film from the list
+    """
+    all_films = films.get_all_values()[1:]
+    delete = int(input("Please enter a valid film number: "))
+    warnings.filterwarnings("ignore", category=DeprecationWarning)     
+    if delete < len(all_films):
+        deleted_film = delete + 1
+        films.delete_row(deleted_film)
+        print("Film deleted successuflly")
+    else:
+        delete_film()
 
 def main():
     set_up()
