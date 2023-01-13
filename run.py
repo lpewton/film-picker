@@ -1,6 +1,7 @@
 import gspread
 import random
 import warnings
+from colorama import Fore, Back, Style
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -25,7 +26,7 @@ def set_up():
     print("1: See all available films")
     print("2: Get a random film suggestion based on a category")
     print("3: Add a new film to the system")
-    print(f"4: Delete a film\n")
+    print(f"4: Remove a film from the system\n")
     pick_option()
 
 def pick_option():
@@ -44,9 +45,7 @@ def pick_option():
         elif int(options) == 3:
             update_worksheet()
         elif int(options) == 4:
-            print("Please choose a film to delete:")
-            show_films()
-            delete_film()
+            delete_film()    
         else:
             print("Please introduce one of the options")
             pick_option()
@@ -188,19 +187,31 @@ def update_worksheet():
 
 def delete_film():
     """
-    Deletes a film from the list
+    Shows all films and deletes the one user chooses
+    """
+    print("Please choose a film to delete:")
+    show_films()
+    remove_film()
+
+def remove_film():
+    """
+    Removes a film from the worksheet
     """
     all_films = films.get_all_values()[1:]
-    delete = int(input("Please enter a valid film number: "))
-    warnings.filterwarnings("ignore", category=DeprecationWarning)     
-    if delete < len(all_films):
-        deleted_film = delete + 1
-        films.delete_row(deleted_film)
-        print("Film deleted successuflly")
-    else:
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    try:
+        delete = int(input("Please enter a valid film number: "))
+        if delete < len(all_films) + 1:
+            deleted_film = delete + 1
+            films.delete_row(deleted_film)
+            print("\nFilm deleted successuflly\n")
+        else:
+            delete_film()
+    except:
         delete_film()
 
 def main():
     set_up()
 
 main()
+
