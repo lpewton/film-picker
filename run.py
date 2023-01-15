@@ -136,11 +136,11 @@ def pick_random_film(category):
     title = film[0]
     genre = film[1]
     descr = film[2]
-    rating = film[3]
+    film_rating = film[3]
     print(Fore.YELLOW + "\nTitle: " + Style.RESET_ALL + f"{title}")
     print(Fore.YELLOW + "Genre: " + Style.RESET_ALL + f"{genre}")
     print(Fore.YELLOW + "Synopsis: " + Style.RESET_ALL + f"{descr}")
-    print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{rating}\n")  
+    print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{film_rating}\n")  
 
 def add_movie():
     """
