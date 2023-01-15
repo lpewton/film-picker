@@ -67,10 +67,10 @@ def show_films():
         descr = film[2]
         rating = film[3]
         film_num = film_num + 1
-        print(f"\n{film_num}: {title}")
-        print(f"Genre: {genre}")
-        print(f"Synopsis: {descr}")
-        print(f"Rating: {rating}\n")
+        print(Fore.YELLOW + f"{film_num}: " + Style.RESET_ALL + f"{title}")
+        print(Fore.YELLOW + "Genre: " + Style.RESET_ALL + f"{genre}")
+        print(Fore.YELLOW + "Synopsis: " + Style.RESET_ALL + f"{descr}")
+        print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{rating}\n")  
 
 def print_categories():
     """
@@ -137,10 +137,10 @@ def pick_random_film(category):
     genre = film[1]
     descr = film[2]
     rating = film[3]
-    print(f"\nTitle: {title}")
-    print(f"Genre: {genre}")
-    print(f"Synopsis: {descr}")
-    print(f"Rating: {rating}\n")
+    print(Fore.YELLOW + "\nTitle: " + Style.RESET_ALL + f"{title}")
+    print(Fore.YELLOW + "Genre: " + Style.RESET_ALL + f"{genre}")
+    print(Fore.YELLOW + "Synopsis: " + Style.RESET_ALL + f"{descr}")
+    print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{rating}\n")  
 
 def add_movie():
     """
@@ -214,4 +214,3 @@ def main():
     set_up()
 
 main()
-
