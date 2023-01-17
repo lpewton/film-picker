@@ -72,7 +72,8 @@ def show_films():
         print(Fore.YELLOW + f"{film_num}: " + Style.RESET_ALL + f"{title}")
         print(Fore.YELLOW + "Genre: " + Style.RESET_ALL + f"{genre}")
         print(Fore.YELLOW + "Synopsis: " + Style.RESET_ALL + f"{descr}")
-        print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{rating}\n")  
+        print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{rating}\n")
+    back_to_menu()
 
 def print_categories():
     """
@@ -143,6 +144,7 @@ def pick_random_film(category):
     print(Fore.YELLOW + "Genre: " + Style.RESET_ALL + f"{genre}")
     print(Fore.YELLOW + "Synopsis: " + Style.RESET_ALL + f"{descr}")
     print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{film_rating}\n")  
+    back_to_menu()
 
 def add_movie():
     """
@@ -186,6 +188,7 @@ def update_worksheet():
     movie = add_movie()
     films.append_row(movie)
     print(f"\nMovie added successfully\n")
+    back_to_menu()
 
 def delete_film():
     """
@@ -207,12 +210,30 @@ def remove_film():
             deleted_film = delete + 1
             films.delete_row(deleted_film)
             print("\nFilm deleted successuflly\n")
+            back_to_menu()
         else:
             remove_film()
     except ValueError():
         remove_film()
 
+def back_to_menu():
+    """
+    Gives the user the option to go back to the initial menu
+    """
+    print("Please choose an option")
+    print("     M: Go back to the initial menu")
+    print("     E: Exit program\n")
+    back_to_menu_option = input("Enter option: ")
+    answer = back_to_menu_option.upper()
+    if answer == "E":
+        print("\nGOODBYE\n")
+    elif answer == "M":
+        main()
+    else:
+        print("\nPlease enter one of the options\n")
+        back_to_menu()
+
 def main():
     set_up()
-
+    
 main()
