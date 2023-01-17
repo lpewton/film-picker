@@ -14,6 +14,8 @@ CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("film_picker")
+MAX_RATING = 10
+MIN_RATING= 0
 
 films = SHEET.worksheet("films")
 
@@ -165,10 +167,10 @@ def validate_rating():
     try:
         global rating
         rating = float(input(f"\nIMDb Rating: "))
-        if rating > 10:
+        if rating > MAX_RATING:
             print("Rating must be between 0 and 10")
             validate_rating()
-        elif rating < 0:
+        elif rating < MIN_RATING:
             validate_rating()
             print("Rating must be between 0 and 10")
     except ValueError:
@@ -206,9 +208,9 @@ def remove_film():
             films.delete_row(deleted_film)
             print("\nFilm deleted successuflly\n")
         else:
-            delete_film()
-    except:
-        delete_film()
+            remove_film()
+    except ValueError():
+        remove_film()
 
 def main():
     set_up()
