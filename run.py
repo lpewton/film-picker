@@ -23,7 +23,7 @@ def set_up():
     """
     Sets introduction up.
     """
-    print("Welcome to Film Picker!")
+    print("\nWelcome to Film Picker!")
     print("Please choose an option:\n")
     print("1: See all available films")
     print("2: Get a random film suggestion based on a category")
@@ -40,6 +40,7 @@ def pick_option():
         options = input("Introduce option: ")
         if int(options) == 1:
             show_films()
+            back_to_menu()
         elif int(options) == 2:
             print_categories()
             pick_category()
@@ -49,10 +50,10 @@ def pick_option():
         elif int(options) == 4:
             delete_film()    
         else:
-            print("Please introduce one of the options")
+            print(Fore.RED + "Please introduce one of the options" + Fore.RESET)
             pick_option()
     except ValueError:
-        print("Please introduce one of the options")
+        print(Fore.RED + "Please introduce one of the options" + Fore.RESET)
         pick_option()
 
 def show_films():
@@ -73,7 +74,6 @@ def show_films():
         print(Fore.YELLOW + "Genre: " + Style.RESET_ALL + f"{genre}")
         print(Fore.YELLOW + "Synopsis: " + Style.RESET_ALL + f"{descr}")
         print(Fore.YELLOW + "Rating: " + Style.RESET_ALL + f"{rating}\n")
-    back_to_menu()
 
 def print_categories():
     """
@@ -117,10 +117,10 @@ def pick_category():
         if categories == 9:
             category = "Mistery"
         if categories > 9:
-            print(f"\nPlease input a valid category\n")
+            print(Fore.RED + f"\nPlease input a valid category\n" + Fore.RESET)
             pick_category()
     except ValueError:
-        print(f"\nPlease input a valid category\n")
+        print(Fore.RED + f"\nPlease input a valid category\n" + Fore.RESET)
         pick_category()
     return category
 
@@ -133,7 +133,7 @@ def pick_random_film(category):
     for ind in range(len(all_films)):
         if category in all_films[ind]:
             category_list.append(all_films[ind])
-    print(f"\nYou chose {category}. This is a recommended {category} film:")
+    print(Fore.GREEN +f"\nYou chose {category}. This is a recommended {category} film:" + Fore.RESET)
     random_num = random.randint(0, len(category_list))
     film = category_list[random_num]
     title = film[0]
@@ -150,12 +150,13 @@ def add_movie():
     """
     Adds film caracteristics to a list
     """
+    print(Fore.GREEN + "\nYou chose to add a film\n" + Fore.RESET)
     new_movie = []
-    movie_title = input(f"\nMovie title: ")
+    movie_title = input(f"Movie title: ")
     new_movie.append(movie_title)
     print_categories()
     new_movie.append(pick_category())
-    print(f"\nYou picked {category}\n")
+    print(Fore.GREEN + f"\nYou picked {category}\n" + Fore.RESET)
     movie_descr = input("Movie synopsis: ")
     new_movie.append(movie_descr)
     new_movie.append(validate_rating())
@@ -170,13 +171,13 @@ def validate_rating():
         global rating
         rating = float(input(f"\nIMDb Rating: "))
         if rating > MAX_RATING:
-            print("Rating must be between 0 and 10")
+            print(Fore.RED + "Rating must be between 0 and 10" + Fore.RESET)
             validate_rating()
         elif rating < MIN_RATING:
             validate_rating()
-            print("Rating must be between 0 and 10")
+            print(Fore.RED + "Rating must be between 0 and 10" + Fore.RESET)
     except ValueError:
-        print("Please input a valid number")
+        print(Fore.RED + "Please input a valid number" + Fore.RESET)
         validate_rating()
     
     return rating
@@ -187,14 +188,16 @@ def update_worksheet():
     """
     movie = add_movie()
     films.append_row(movie)
-    print(f"\nMovie added successfully\n")
+    print(Fore.GREEN + f"\nMovie added successfully\n" + Fore.RESET)
+    films.sort()
+    show_films()
     back_to_menu()
 
 def delete_film():
     """
     Shows all films and deletes the one user chooses
     """
-    print("Please choose a film to delete:")
+    print("\nPlease choose a film to delete:")
     show_films()
     remove_film()
 
@@ -205,11 +208,11 @@ def remove_film():
     all_films = films.get_all_values()[1:]
     warnings.filterwarnings("ignore", category=DeprecationWarning)
     try:
-        delete = int(input("Please enter a valid film number: "))
+        delete = int(input("Please enter a valid film number to delete: "))
         if delete < len(all_films) + 1:
             deleted_film = delete + 1
             films.delete_row(deleted_film)
-            print("\nFilm deleted successuflly\n")
+            print(Fore.GREEN + "\nFilm deleted successuflly\n" + Fore.RESET)
             back_to_menu()
         else:
             remove_film()
@@ -226,11 +229,11 @@ def back_to_menu():
     back_to_menu_option = input("Enter option: ")
     answer = back_to_menu_option.upper()
     if answer == "E":
-        print("\nGOODBYE\n")
+        print(Fore.BLUE + "\nGOODBYE\n" + Fore.RESET)
     elif answer == "M":
         main()
     else:
-        print("\nPlease enter one of the options\n")
+        print(Fore.RED + "\nPlease enter one of the options\n" + Fore.RESET)
         back_to_menu()
 
 def main():
