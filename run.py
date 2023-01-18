@@ -15,7 +15,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("film_picker")
 MAX_RATING = 10
-MIN_RATING= 0
+MIN_RATING = 0
 
 films = SHEET.worksheet("films")
 
@@ -50,10 +50,10 @@ def pick_option():
         elif int(options) == 4:
             delete_film()    
         else:
-            print(Fore.RED + "Please introduce one of the options" + Fore.RESET)
+            print(Fore.RED + "Please introduce one of the options\n" + Fore.RESET)
             pick_option()
     except ValueError:
-        print(Fore.RED + "Please introduce one of the options" + Fore.RESET)
+        print(Fore.RED + "Please introduce one of the options\n" + Fore.RESET)
         pick_option()
 
 def show_films():
@@ -100,27 +100,27 @@ def pick_category():
         categories = int(input("Introduce category: "))
         if categories == 1:
             category = "Comedy"
-        if categories == 2:
+        elif categories == 2:
             category = "Drama"
-        if categories == 3:
+        elif categories == 3:
             category = "Horror"
-        if categories == 4:
+        elif categories == 4:
             category = "History"
-        if categories == 5:
+        elif categories == 5:
             category = "Action"
-        if categories == 6:
+        elif categories == 6:
             category = "Crime"
-        if categories == 7:
+        elif categories == 7:
             category = "Romance"
-        if categories == 8:
+        elif categories == 8:
             category = "Fantasy"
-        if categories == 9:
+        elif categories == 9:
             category = "Mistery"
-        if categories > 9:
-            print(Fore.RED + f"\nPlease input a valid category\n" + Fore.RESET)
+        else:
+            print(Fore.RED + f"Please input a valid category\n" + Fore.RESET)
             pick_category()
     except ValueError:
-        print(Fore.RED + f"\nPlease input a valid category\n" + Fore.RESET)
+        print(Fore.RED + f"Please input a valid category\n" + Fore.RESET)
         pick_category()
     return category
 
@@ -156,7 +156,7 @@ def add_movie():
     new_movie.append(movie_title)
     print_categories()
     new_movie.append(pick_category())
-    print(Fore.GREEN + f"\nYou picked {category}\n" + Fore.RESET)
+    print(Fore.GREEN + f"You picked {category}\n" + Fore.RESET)
     movie_descr = input("Movie synopsis: ")
     new_movie.append(movie_descr)
     new_movie.append(validate_rating())
@@ -174,8 +174,8 @@ def validate_rating():
             print(Fore.RED + "Rating must be between 0 and 10" + Fore.RESET)
             validate_rating()
         elif rating < MIN_RATING:
-            validate_rating()
             print(Fore.RED + "Rating must be between 0 and 10" + Fore.RESET)
+            validate_rating()
     except ValueError:
         print(Fore.RED + "Please input a valid number" + Fore.RESET)
         validate_rating()
@@ -233,7 +233,7 @@ def back_to_menu():
     elif answer == "M":
         main()
     else:
-        print(Fore.RED + "\nPlease enter one of the options\n" + Fore.RESET)
+        print(Fore.RED + "Please enter one of the options\n" + Fore.RESET)
         back_to_menu()
 
 def main():
