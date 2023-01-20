@@ -208,15 +208,21 @@ def remove_film():
     all_films = films.get_all_values()[1:]
     warnings.filterwarnings("ignore", category=DeprecationWarning)
     try:
-        delete = int(input("Please enter a valid film number to delete: "))
-        if delete < len(all_films) + 1:
-            deleted_film = delete + 1
-            films.delete_row(deleted_film)
-            print(Fore.GREEN + "\nFilm deleted successuflly\n" + Fore.RESET)
-            back_to_menu()
-        else:
+        delete = int(input("Please enter a valid film number to delete: "))     
+        if delete <= 0:
+            print(Fore.RED + "Please enter one of the film options\n" + Fore.RESET)
             remove_film()
-    except ValueError():
+        elif delete < len(all_films) + 1:
+                    deleted_film = delete + 1
+                    films.delete_row(deleted_film)
+                    print(Fore.GREEN + "\nFilm deleted successuflly\n" + Fore.RESET)
+                    back_to_menu()
+        else:
+            print(Fore.RED + "Please enter one of the film options\n" + Fore.RESET)
+            remove_film()
+    
+    except ValueError:    
+        print(Fore.RED + "Please enter one of the film options\n" + Fore.RESET)
         remove_film()
 
 def back_to_menu():
@@ -240,3 +246,4 @@ def main():
     set_up()
     
 main()
+
