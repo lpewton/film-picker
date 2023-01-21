@@ -53,7 +53,7 @@ def pick_option():
             delete_film()
         else:
             print(Fore.RED + "Please introduce one of the options")
-            print(Fore.RESET)
+            print(Fore.RESET)  # Requires separate line or line is too long
             pick_option()
     except ValueError:
         print(Fore.RED + "Please introduce one of the options\n" + Fore.RESET)
@@ -98,7 +98,7 @@ def print_categories():
 
 def pick_category():
     """
-    Allows user to pick a category for film to watch
+    Allows user to pick a category for a film
     """
     global category
 
@@ -142,7 +142,7 @@ def pick_random_film(category):
         if category in all_films[ind]:
             category_list.append(all_films[ind])
     print(Fore.GREEN + f"\nYou chose {category}.")
-    print(Fore.RESET)
+    print(Fore.RESET)  # Requires separate line or line is too long
     print(f"This is a recommended {category} film:")
     random_num = random.randint(0, len(category_list))
     film = category_list[random_num]
@@ -159,7 +159,7 @@ def pick_random_film(category):
 
 def add_movie():
     """
-    Adds film caracteristics to a list
+    Adds film caracteristics to a new list
     """
     print(Fore.GREEN + "\nYou chose to add a film\n" + Fore.RESET)
     new_movie = []
@@ -177,7 +177,7 @@ def add_movie():
 
 def validate_rating():
     """
-    Ensures that rating is a number from 1 to 10
+    Ensures that rating is a number from 0 to 10
     """
     try:
         global rating
@@ -220,24 +220,25 @@ def remove_film():
     """
     Removes a film from the worksheet
     """
-    all_films = films.get_all_values()[1:]
+    all_films = films.get_all_values()
     warnings.filterwarnings("ignore", category=DeprecationWarning)
     try:
         delete = int(input("Please enter a valid film number to delete: "))
         if delete <= 0:
             print(Fore.RED + "Please enter one of the film options")
-            print(Fore.RESET)
+            print(Fore.RESET)  # Requires separate line or line is too long
             remove_film()
         elif delete < len(all_films) + 1:
             deleted_film = delete + 1
             films.delete_row(deleted_film)
             print(Fore.GREEN + "\nFilm deleted successuflly\n" + Fore.RESET)
             back_to_menu()
+            # 1 is necessary here because excel list starts at
+            # 1 and terminal printed list starts at 0
         else:
             print(Fore.RED + "Please enter one of the film options")
-            print(Fore.RESET)
+            print(Fore.RESET)  # Requires separate line or line is too long
             remove_film()
-
     except ValueError:
         print(Fore.RED + "Please enter one of the film options\n" + Fore.RESET)
         remove_film()
@@ -250,7 +251,7 @@ def back_to_menu():
     print("Please choose an option")
     print("     M: Go back to the initial menu")
     print("     E: Exit program\n")
-    back_to_menu_option = input("Enter option: ")
+    back_to_menu_option = input("Enter option (M/E): ")
     answer = back_to_menu_option.upper()
     if answer == "E":
         print(Fore.BLUE + "\nGOODBYE\n" + Fore.RESET)
